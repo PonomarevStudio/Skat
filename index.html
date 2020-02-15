@@ -1,0 +1,678 @@
+<style>
+    :root {
+        font-family: 'Formular', Arial, sans-serif;
+        font-size: 16px;
+    }
+
+    main > section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .pageTitle {
+        color: #000000;
+        font-size: 32px;
+        line-height: 1.55;
+        font-weight: 700;
+        background-position: center center;
+        border-color: transparent;
+        border-style: solid;
+    }
+
+    .pageDescription {
+        color: #000000;
+        font-size: 16px;
+        line-height: 1.55;
+        font-weight: 400;
+        background-position: center center;
+        border-color: transparent;
+        border-style: solid;
+    }
+
+    .formSection {
+        box-sizing: border-box;
+        display: flex;
+        flex-direction: column;
+        border-radius: 10px;
+        background-color: #28282d;
+        background-position: center center;
+        /*border-color: transparent;*/
+        /*border-style: solid;*/
+        border: none;
+        color: white;
+        max-width: 640px;
+        padding: 30px 30px;
+    }
+
+    #rawVariants {
+        display: flex;
+        flex-wrap: wrap;
+        margin: 10px 0;
+    }
+
+    button[type="submit"] {
+        all: initial;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        color: #242424;
+        background-color: #ffd54d;
+        border-radius: 30px;
+        font-weight: 600;
+        font-size: 16px;
+        width: 180px;
+        height: 50px;
+        padding: 0 15px;
+        display: block;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    button[type="submit"]:active,
+    button[type="submit"]:hover {
+        background-color: #C29F86;
+        border-color: #C29F86;
+        color: white;
+    }
+
+    .parameterVariant input[type='radio'],
+    .parameterVariant input[type='checkbox'] {
+        all: initial;
+        white-space: nowrap;
+        margin: unset;
+        margin-right: 30px;
+        margin-top: 5px;
+        margin-left: 5px;
+        padding: unset;
+        vertical-align: sub;
+        vertical-align: -webkit-baseline-middle;
+        cursor: pointer;
+    }
+
+    .parameterVariant input[type='radio']:after,
+    .parameterVariant input[type='checkbox']:after {
+        color: white;
+        font-size: 18px;
+        line-height: 18px;
+        content: '';
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        background-color: #28282d;
+        border-width: 2px;
+        border-radius: 3px;
+        background-position: center center;
+        border-color: #ffffff;
+        border-style: solid;
+        margin-top: -5px;
+        margin-left: -5px;
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    }
+
+    .parameterVariant input[type='radio']:checked:after,
+    .parameterVariant input[type='checkbox']:checked:after {
+        background-color: #fadc80;
+        border-color: #fadc80;
+        color: #242424;
+    }
+
+    .parameterVariant input[type='radio']:hover:after,
+    .parameterVariant input[type='checkbox']:hover:after {
+        background-color: white;
+        border-color: white;
+        color: #242424;
+    }
+
+    .radioParameters input[type="radio"],
+    #rawVariants input[type="checkbox"] {
+        all: initial;
+        white-space: nowrap;
+        cursor: pointer;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        color: #ffffff;
+        font-size: 14px;
+        line-height: 1.55;
+        font-weight: 500;
+        border-width: 2px;
+        border-radius: 30px;
+        background-position: center center;
+        border-color: #ffffff;
+        border-style: solid;
+        padding: 5px 15px;
+        margin-right: 15px;
+        margin-top: 15px;
+        transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+    }
+
+    .radioParameters input[type="radio"]:checked,
+    #rawVariants input[type="checkbox"]:checked {
+        background-color: #fadc80;
+        border-color: #fadc80;
+        color: #242424;
+    }
+
+    .radioParameters input[type="radio"]:hover,
+    #rawVariants input[type="checkbox"]:hover {
+        background: white;
+        border-color: white;
+        color: #28282d;
+    }
+
+    .radioParameters input[type="radio"]:before,
+    #rawVariants input[type="checkbox"]:before {
+        content: attr(value);
+        display: block;
+    }
+
+    textarea,
+    input[type="text"],
+    input[type="tel"],
+    input[type="email"] {
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        border: none;
+        color: #3b3b3b;
+        background-color: #fff;
+        border-radius: 5px;
+        -moz-border-radius: 5px;
+        -webkit-border-radius: 5px;
+        font-size: 16px;
+        font-weight: 400;
+        height: 50px;
+        padding: 0 20px;
+        line-height: 1.33;
+        width: calc(100% - 40px);
+    }
+
+    textarea {
+        height: auto;
+        padding: 10px 20px;
+    }
+
+    input[type=range] {
+        -webkit-appearance: none;
+        width: 100%;
+        margin: 6px 0;
+        background-color: transparent;
+        position: relative;
+        margin-bottom: 30px;
+    }
+
+    input[type=range]:focus {
+        outline: none;
+    }
+
+    input[type=range]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 3px;
+        cursor: pointer;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+        background: rgba(250, 220, 128, 0.78);
+        border-radius: 0px;
+        border: 0px solid rgba(0, 0, 0, 0);
+    }
+
+    input[type=range]::-webkit-slider-thumb {
+        content: 'Test';
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+        border: 0px solid rgba(0, 0, 0, 0);
+        height: 15px;
+        width: 15px;
+        border-radius: 15px;
+        background: #fadc80;
+        cursor: pointer;
+        -webkit-appearance: none;
+        margin-top: -6px;
+    }
+
+    input[type=range]:focus::-webkit-slider-runnable-track {
+        background: rgba(251, 227, 153, 0.78);
+    }
+
+    input[type=range]::-moz-range-track {
+        width: 100%;
+        height: 3px;
+        cursor: pointer;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+        background: rgba(250, 220, 128, 0.78);
+        border-radius: 0px;
+        border: 0px solid rgba(0, 0, 0, 0);
+    }
+
+    input[type=range]::-moz-range-thumb {
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+        border: 0px solid rgba(0, 0, 0, 0);
+        height: 15px;
+        width: 15px;
+        border-radius: 15px;
+        background: #fadc80;
+        cursor: pointer;
+    }
+
+    input[type=range]::-ms-track {
+        width: 100%;
+        height: 3px;
+        cursor: pointer;
+        background: transparent;
+        border-color: transparent;
+        color: transparent;
+    }
+
+    input[type=range]::-ms-fill-lower {
+        background: rgba(249, 213, 103, 0.78);
+        border: 0px solid rgba(0, 0, 0, 0);
+        border-radius: 0px;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    }
+
+    input[type=range]::-ms-fill-upper {
+        background: rgba(250, 220, 128, 0.78);
+        border: 0px solid rgba(0, 0, 0, 0);
+        border-radius: 0px;
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+    }
+
+    input[type=range]::-ms-thumb {
+        box-shadow: 0px 0px 0px rgba(0, 0, 0, 0), 0px 0px 0px rgba(13, 13, 13, 0);
+        border: 0px solid rgba(0, 0, 0, 0);
+        height: 15px;
+        width: 15px;
+        border-radius: 15px;
+        background: #fadc80;
+        cursor: pointer;
+        height: 3px;
+    }
+
+    input[type=range]:focus::-ms-fill-lower {
+        background: rgba(250, 220, 128, 0.78);
+    }
+
+    input[type=range]:focus::-ms-fill-upper {
+        background: rgba(251, 227, 153, 0.78);
+    }
+
+    input[type=range]:before,
+    input[type=range]:after {
+        all: initial;
+        content: attr(min);
+        color: white;
+        position: absolute;
+        left: 3px;
+        bottom: -30px;
+    }
+
+    input[type=range]:after {
+        content: attr(max);
+        left: initial;
+        right: 0;
+    }
+
+    .inputOther {
+        all: initial;
+        color: #8f8f8f;
+        border-bottom: 2px solid #8f8f8f;
+        font-size: 16px;
+        font-weight: 400;
+        height: 50px;
+        line-height: 1.33;
+        margin-top: 10px;
+    }
+
+    .inputOther:not(:empty),
+    .inputOther:focus {
+        color: white;
+        border-bottom: 2px solid white;
+    }
+
+    #rawParameters {
+        margin: 30px 0;
+    }
+
+    .parametersSection {
+        display: flex;
+        flex-direction: column;
+        border-width: 2px;
+        border-radius: 10px;
+        background-position: center center;
+        border-color: #ffffff;
+        border-style: solid;
+        padding: 20px;
+        position: relative;
+        margin: 20px 0;
+    }
+
+    .deleteRaw {
+        all: initial;
+        appearance: none;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        background: transparent;
+        border: none;
+        width: 25px;
+        height: 25px;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+    }
+
+    .deleteRaw img {
+        width: 100%;
+    }
+
+    .rawTitle {
+        color: #ffd54d;
+        font-size: 16px;
+        line-height: 1.55;
+        font-weight: 600;
+        background-position: center center;
+        border-color: transparent;
+        border-style: solid;
+    }
+
+    .radioParameters {
+        display: flex;
+        flex-direction: column;
+        align-items: baseline;
+    }
+
+    .radioParameters.inline {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: initial;
+    }
+
+    .parameterLabel {
+        font-size: 16px;
+        line-height: 1.55;
+        font-weight: 600;
+        margin: 20px 0;
+    }
+
+    .parameterVariant {
+        margin: 10px 0;
+        height: 18px;
+        line-height: 18px;;
+    }
+
+    .formField {
+        margin: 10px 0;
+    }
+
+    .formField > * {
+        margin-top: 5px;
+    }
+
+    @media (min-width: 1200px) {
+        main {
+            display: flex;
+            justify-content: space-between;
+            max-width: 1150px;
+            margin: auto;
+        }
+
+        main > section:last-child {
+            margin-right: 50px;
+        }
+
+        .pageTitle {
+            max-width: 300px;
+            font-size: 36px;
+        }
+
+        .pageDescription {
+            max-width: 540px;
+            font-size: 18px;
+            margin-bottom: 50px;
+            margin-right: 100px;
+        }
+
+        .radioParameters input[type="radio"],
+        #rawVariants input[type="checkbox"] {
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 1199px) {
+        .pageTitle {
+            max-width: 730px;
+        }
+
+        .pageDescription {
+            max-width: 520px;
+        }
+    }
+
+    @media (max-width: 960px) {
+        .formSection {
+            max-width: 620px;
+            padding: 30px 60px;
+        }
+
+        .pageTitle {
+            max-width: 430px;
+        }
+
+        .pageDescription {
+            max-width: 520px;
+        }
+
+        .radioParameters input[type="radio"],
+        #rawVariants input[type="checkbox"] {
+            font-size: 16px;
+        }
+    }
+
+    @media (max-width: 640px) {
+        .formSection {
+            max-width: 460px;
+            padding: 30px 30px;
+        }
+
+        .pageTitle {
+            max-width: 430px;
+        }
+
+        .pageDescription {
+            max-width: 400px;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .formSection {
+            max-width: 360px;
+            padding: 30px 10px;
+        }
+
+        .pageTitle {
+            max-width: 260px;
+        }
+
+        .pageDescription {
+            max-width: 300px;
+        }
+    }
+
+    main {
+        margin-bottom: 100px;
+    }
+
+</style>
+<script>
+    function addVariant(raw) {
+        console.debug('addVariant', raw);
+        let variantNode = document.createElement('div');
+        variantNode.className = 'parametersSection';
+        variantNode.id = raw;
+        variantNode.innerHTML = `<button class="deleteRaw" onclick="deleteVariant('${raw}')">
+                        <img src="https://static.tildacdn.com/tild3766-3164-4263-a537-383239663134/Group_833.png">
+                    </button>
+                    <span class="rawTitle">${raw}</span>
+                    <span class="parameterLabel">1.1. Выберите гранулометрический состав материала подвергаемого флотационному обогащению</span>
+                    <div class="radioParameters">
+                        <input type="radio" name="${raw}[1]" value="Процент класса -0,074 мм">
+                        <input type="radio" name="${raw}[1]" value="Процент класса -0,044 мм">
+                        <input type="radio" name="${raw}[1]" value="Процент класса -0,02 мм">
+                    </div>
+                    <span class="parameterLabel">1.2. Кислотность пульпы, рН</span>
+                    <input type="range" min="1" max="12" name="${raw}[2]">
+                    <span class="parameterLabel">1.3. Соотношение Т:Ж в пульпе</span>
+                    <input type="text" placeholder="Введите значение" name="${raw}[3]">
+                    <span class="parameterLabel">1.4. Объем пульпы, м3/час</span>
+                    <input type="text" placeholder="Введите значение" name="${raw}[4]">
+                    <span class="parameterLabel">1.5. Химический, минералогический и фазовый состав руды</span>
+                    <input type="text" placeholder="Введите значение" name="${raw}[5]">`;
+        document.getElementById('rawParameters').appendChild(variantNode);
+    }
+
+    function deleteVariant(raw) {
+        console.debug('deleteVariant', raw);
+        let variantNode = document.getElementById(raw);
+        variantNode.parentNode.removeChild(variantNode);
+        document.querySelector(`#rawVariants > input[value="${raw}"]`).checked = false;
+    }
+
+    function updateOtherVariant(otherRaw) {
+        console.debug('updateOtherVariant', otherRaw);
+        if (!document.getElementById('otherVariant')) {
+            let variantNode = document.createElement('div');
+            variantNode.className = 'parametersSection';
+            variantNode.id = 'otherVariant';
+            variantNode.innerHTML = `<button class="deleteRaw" onclick="deleteOtherVariant()">
+                        <img src="https://static.tildacdn.com/tild3766-3164-4263-a537-383239663134/Group_833.png">
+                    </button>
+                    <span class="rawTitle">${otherRaw}</span>
+                    <span class="parameterLabel">1.1. Выберите гранулометрический состав материала подвергаемого флотационному обогащению</span>
+                    <div class="radioParameters">
+                        <input type="radio" name="otherRaw[1]" value="Процент класса -0,074 мм">
+                        <input type="radio" name="otherRaw[1]" value="Процент класса -0,044 мм">
+                        <input type="radio" name="otherRaw[1]" value="Процент класса -0,02 мм">
+                    </div>
+                    <span class="parameterLabel">1.2. Кислотность пульпы, рН</span>
+                    <input type="range" min="1" max="12" name="otherRaw[2]">
+                    <span class="parameterLabel">1.3. Соотношение Т:Ж в пульпе</span>
+                    <input type="text" placeholder="Введите значение" name="otherRaw[3]">
+                    <span class="parameterLabel">1.4. Объем пульпы, м3/час</span>
+                    <input type="text" placeholder="Введите значение" name="otherRaw[4]">
+                    <span class="parameterLabel">1.5. Химический, минералогический и фазовый состав руды</span>
+                    <input type="text" placeholder="Введите значение" name="otherRaw[5]">`;
+            document.getElementById('rawParameters').appendChild(variantNode);
+        } else {
+            document.getElementById('otherVariant').querySelector(`.rawTitle`).innerText = otherRaw;
+        }
+    }
+
+    function deleteOtherVariant() {
+        console.debug('deleteOtherVariant');
+        let variantNode = document.getElementById('otherVariant');
+        variantNode.parentNode.removeChild(variantNode);
+        document.querySelector(`#rawVariants > input[value="Другое"]`).checked = false;
+        toggleOtherRawField(false)
+    }
+
+    function toggleOtherRawField(state) {
+        const otherRaw = document.getElementById('otherRaw');
+        otherRaw.style.display = state ? 'initial' : 'none';
+        if (!state) {
+            otherRaw.value = '';
+            deleteOtherVariant();
+        }
+    }
+
+    function toggleOtherPlace(state) {
+        const otherPlace = document.getElementById('otherPlace');
+        otherPlace.style.display = state ? 'initial' : 'none';
+        if (!state) {
+            otherPlace.value = '';
+        }
+    }
+
+    function togglePlaceHandler(event) {
+        const node = event.target;
+        toggleOtherPlace(node.checked && node.dataset.other);
+    }
+
+    window.addEventListener('load', () => {
+        document.getElementById('rawVariants').querySelectorAll('input[name="raw[]"]').forEach(rawToggle =>
+            rawToggle.addEventListener('change', e => this[e.target.checked ? 'addVariant' : 'deleteVariant'](e.target.value)));
+        document.getElementById('rawVariants').querySelector('input[value="Другое"]').addEventListener('change', e => toggleOtherRawField(e.target.checked));
+        document.getElementById('otherRaw').addEventListener('change', e => e.target.value.length > 0 ? updateOtherVariant(e.target.value) : deleteOtherVariant());
+        document.getElementById('form').addEventListener('keypress', (e) => {
+            if (e.keyCode === 13) {
+                var src = e.srcElement || e.target;
+                if (src.tagName.toLowerCase() !== "textarea") {
+                    if (e.preventDefault) {
+                        e.preventDefault();
+                    } else {
+                        e.returnValue = false;
+                    }
+                }
+            }
+        })
+        // document.getElementById('otherPlaceToggle').addEventListener('change', e => toggleOtherPlace(e.target.checked));
+        document.querySelectorAll('input[name="2"]').forEach(node => node.addEventListener('change', togglePlaceHandler))
+    });
+</script>
+<main>
+    <section>
+        <h1 class="pageTitle">Конфигуратор флотационной машины</h1>
+    </section>
+    <section>
+        <p class="pageDescription">Выберите необходимые параметры онлайн, заполните заявку и получите расчет стоимости
+            тестового образца
+            на ваше производство.</p>
+        <form id="form" class="formSection" method="post" action="https://form.ponomarev.studio">
+            <span class="parameterLabel">1. Выберите минеральное сырье для флотационного обогащения</span>
+            <div id="rawVariants">
+                <input type="checkbox" name="raw[]" value="Уголь">
+                <input type="checkbox" name="raw[]" value="Медно-цинковые">
+                <input type="checkbox" name="raw[]" value="Неметаллические ископаемые">
+                <input type="checkbox" name="raw[]" value="Руды рассеянных металлов">
+                <input type="checkbox" name="raw[]" value="Руды черных металлов">
+                <input type="checkbox" name="raw[]" value="Полиметаллические руды">
+                <input type="checkbox" name="raw[]" value="Руды редких металлов">
+                <input type="checkbox" name="raw[]" value="Руды благородных металлов">
+                <input type="checkbox" value="Другое">
+            </div>
+            <input id="otherRaw" class="inputOther" name="otherRawTitle" placeholder="Укажите ваше сырье"
+                   style="display: none">
+            <div id="rawParameters"></div>
+            <span class="parameterLabel">2. Выберите предполагаемое место установки в схеме флотационного обогащения</span>
+            <div class="radioParameters inline">
+                <input type="radio" name="2" value="Контрольная флотация">
+                <input type="radio" name="2" value="Дефлотация хвостов">
+                <input type="radio" name="2" value="Руды рассеянных металлов">
+                <input type="radio" name="2" value="Основная флотация">
+                <input type="radio" name="2" value="Межцикловая флотация">
+                <input type="radio" name="2" value="Другое" data-other="true">
+            </div>
+            <input id="otherPlace" class="inputOther" name="otherPlace" placeholder="Укажите место"
+                   style="display: none">
+            <span class="parameterLabel">3. Требуется ли вам насос для перекачивания пульпы с производительностью, превышающей перерабатываемый объем пульпы в 3 раза и обеспечивающий давление не ниже 0,2 МПа?</span>
+            <label class="parameterVariant"><input type="radio" name="3" value="Требуется приобретение">Требуется
+                приобретение</label>
+            <label class="parameterVariant"><input type="radio" name="3" value="Имеется в наличии">Имеется в
+                наличии</label>
+            <span class="parameterLabel">4. Требуется ли вам сжатый воздух с давлением не менее 0,05 МПа в пятикратном объеме от объема перерабатываемой пульпы?</span>
+            <label class="parameterVariant"><input type="radio" name="4" value="Требуется приобретение">Требуется
+                приобретение</label>
+            <label class="parameterVariant"><input type="radio" name="4" value="Имеется в наличии">Имеется в
+                наличии</label>
+            <span class="parameterLabel">5. Личные данные</span>
+            <label class="formField">Ваше имя<br>
+                <input type="text" placeholder="Иван Иванов" name="name" required></label>
+            <label class="formField">Ваш телефон<br>
+                <input type="tel" placeholder="+7 (999) 999-99-99" name="phone" required></label>
+            <label class="formField">Ваш E-mail<br>
+                <input type="email" placeholder="example@gmail.com" name="email" required></label>
+            <label class="formField">Ваще сообщение<br>
+                <textarea placeholder="Введите текст" name="message" rows="6"></textarea></label>
+            <button type="submit">Рассчитать</button>
+        </form>
+    </section>
+</main>
+<script src="https://form.ponomarev.studio/form.js"></script>
