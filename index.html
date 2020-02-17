@@ -11,6 +11,7 @@
     }
 
     .pageTitle {
+        box-sizing: border-box;
         color: #000000;
         font-size: 32px;
         line-height: 1.55;
@@ -18,9 +19,11 @@
         background-position: center center;
         border-color: transparent;
         border-style: solid;
+        margin-bottom: 20px;
     }
 
     .pageDescription {
+        box-sizing: border-box;
         color: #000000;
         font-size: 16px;
         line-height: 1.55;
@@ -28,6 +31,7 @@
         background-position: center center;
         border-color: transparent;
         border-style: solid;
+        margin-bottom: 40px;
     }
 
     .formSection {
@@ -35,7 +39,7 @@
         display: flex;
         flex-direction: column;
         border-radius: 10px;
-        background-color: #28282d;
+        background-color: #242429;
         background-position: center center;
         /*border-color: transparent;*/
         /*border-style: solid;*/
@@ -51,29 +55,33 @@
         margin: 10px 0;
     }
 
+    .modalButton,
     button[type="submit"] {
         all: initial;
         appearance: none;
         -webkit-appearance: none;
         -moz-appearance: none;
-        color: #242424;
+        color: #242424 !important;
         background-color: #ffd54d;
         border-radius: 30px;
         font-weight: 600;
         font-size: 16px;
         width: 180px;
         height: 50px;
+        line-height: 50px;
         padding: 0 15px;
         display: block;
         text-align: center;
         cursor: pointer;
     }
 
+    .modalButton:active,
+    .modalButton:hover,
     button[type="submit"]:active,
     button[type="submit"]:hover {
         background-color: #C29F86;
         border-color: #C29F86;
-        color: white;
+        color: white !important;
     }
 
     .parameterVariant input[type='radio'],
@@ -99,7 +107,7 @@
         display: inline-block;
         width: 18px;
         height: 18px;
-        background-color: #28282d;
+        background-color: #242429;
         border-width: 2px;
         border-radius: 3px;
         background-position: center center;
@@ -112,9 +120,13 @@
 
     .parameterVariant input[type='radio']:checked:after,
     .parameterVariant input[type='checkbox']:checked:after {
-        background-color: #fadc80;
-        border-color: #fadc80;
+        background-color: #FFD54D;
+        border-color: #FFD54D;
         color: #242424;
+        background-image: url("https://ponomarev.studio/Skat/icon.svg");
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: contain;
     }
 
     .parameterVariant input[type='radio']:hover:after,
@@ -149,8 +161,8 @@
 
     .radioParameters input[type="radio"]:checked,
     #rawVariants input[type="checkbox"]:checked {
-        background-color: #fadc80;
-        border-color: #fadc80;
+        background-color: #FFD54D;
+        border-color: #FFD54D;
         color: #242424;
     }
 
@@ -158,7 +170,7 @@
     #rawVariants input[type="checkbox"]:hover {
         background: white;
         border-color: white;
-        color: #28282d;
+        color: #242429;
     }
 
     .radioParameters input[type="radio"]:before,
@@ -169,6 +181,7 @@
 
     textarea,
     input[type="text"],
+    input[type="number"],
     input[type="tel"],
     input[type="email"] {
         appearance: none;
@@ -223,7 +236,7 @@
         height: 15px;
         width: 15px;
         border-radius: 15px;
-        background: #fadc80;
+        background: #FFD54D;
         cursor: pointer;
         -webkit-appearance: none;
         margin-top: -6px;
@@ -249,7 +262,7 @@
         height: 15px;
         width: 15px;
         border-radius: 15px;
-        background: #fadc80;
+        background: #FFD54D;
         cursor: pointer;
     }
 
@@ -282,7 +295,7 @@
         height: 15px;
         width: 15px;
         border-radius: 15px;
-        background: #fadc80;
+        background: #FFD54D;
         cursor: pointer;
         height: 3px;
     }
@@ -407,6 +420,68 @@
         margin-top: 5px;
     }
 
+    .modalWrapper {
+        display: none;
+        position: fixed;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        z-index: 100000;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: rgba(255, 255, 255, 0.7);
+    }
+
+    .modalWrapper:target {
+        display: flex;
+    }
+
+    .modal {
+        box-sizing: border-box;
+        display: flex;
+        position: absolute;
+        border-radius: 15px;
+        background-color: #242429;
+        background-position: center center;
+        border-color: transparent;
+        border-style: solid;
+        padding: 40px 20px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: space-between;
+        max-width: 80%;
+        max-height: 80%;
+        margin: auto;
+        text-align: center;
+    }
+
+    .modalTitle {
+        color: #f9f9f9;
+        line-height: 1.35;
+        font-weight: 700;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    .modalDescription {
+        color: #f9f9f9;
+        line-height: 1.55;
+        font-weight: 400;
+        margin-bottom: 40px;
+    }
+
+    @media (min-width: 630px) {
+        .modal {
+            padding: 40px 20%;
+            min-height: 50%;
+            justify-content: space-around;
+        }
+    }
+
     @media (min-width: 1200px) {
         main {
             display: flex;
@@ -439,11 +514,17 @@
 
     @media (max-width: 1199px) {
         .pageTitle {
-            max-width: 730px;
+            /*max-width: 730px;*/
+            max-width: 640px;
+            padding-left: 30px;
+            padding-right: 30px;
         }
 
         .pageDescription {
-            max-width: 520px;
+            /*max-width: 520px;*/
+            max-width: 640px;
+            padding-left: 30px;
+            padding-right: 30px;
         }
     }
 
@@ -454,11 +535,17 @@
         }
 
         .pageTitle {
-            max-width: 430px;
+            /*max-width: 430px;*/
+            max-width: 620px;
+            padding-left: 60px;
+            padding-right: 60px;
         }
 
         .pageDescription {
-            max-width: 520px;
+            /*max-width: 520px;*/
+            max-width: 620px;
+            padding-left: 60px;
+            padding-right: 60px;
         }
 
         .radioParameters input[type="radio"],
@@ -474,11 +561,17 @@
         }
 
         .pageTitle {
-            max-width: 430px;
+            /*max-width: 430px;*/
+            max-width: 460px;
+            padding-left: 30px;
+            padding-right: 30px;
         }
 
         .pageDescription {
-            max-width: 400px;
+            /*max-width: 400px;*/
+            max-width: 460px;
+            padding-left: 30px;
+            padding-right: 30px;
         }
     }
 
@@ -489,11 +582,29 @@
         }
 
         .pageTitle {
-            max-width: 260px;
+            /*max-width: 260px;*/
+            max-width: 360px;
+            /*padding: inherit 10px;*/
+            padding-left: 10px;
+            padding-right: 10px;
         }
 
         .pageDescription {
-            max-width: 300px;
+            /*max-width: 300px;*/
+            max-width: 360px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+
+        main > section:first-child {
+            /*align-items: flex-start;*/
+            /*margin-left: 10px;*/
+        }
+    }
+
+    @media (max-width: 360px) {
+        .formSection {
+            border-radius: unset;
         }
     }
 
@@ -519,11 +630,11 @@
                         <input type="radio" name="${raw}[1]" value="Процент класса -0,02 мм">
                     </div>
                     <span class="parameterLabel">1.2. Кислотность пульпы, рН</span>
-                    <input type="range" min="1" max="12" name="${raw}[2]">
+                    <input type="number" placeholder="Введите значение" min="1" max="12" name="${raw}[2]">
                     <span class="parameterLabel">1.3. Соотношение Т:Ж в пульпе</span>
                     <input type="text" placeholder="Введите значение" name="${raw}[3]">
                     <span class="parameterLabel">1.4. Объем пульпы, м3/час</span>
-                    <input type="text" placeholder="Введите значение" name="${raw}[4]">
+                    <input type="number" placeholder="Введите значение" name="${raw}[4]">
                     <span class="parameterLabel">1.5. Химический, минералогический и фазовый состав руды</span>
                     <input type="text" placeholder="Введите значение" name="${raw}[5]">`;
         document.getElementById('rawParameters').appendChild(variantNode);
@@ -553,11 +664,11 @@
                         <input type="radio" name="otherRaw[1]" value="Процент класса -0,02 мм">
                     </div>
                     <span class="parameterLabel">1.2. Кислотность пульпы, рН</span>
-                    <input type="range" min="1" max="12" name="otherRaw[2]">
+                    <input type="number" placeholder="Введите значение" min="1" max="12" name="otherRaw[2]">
                     <span class="parameterLabel">1.3. Соотношение Т:Ж в пульпе</span>
                     <input type="text" placeholder="Введите значение" name="otherRaw[3]">
                     <span class="parameterLabel">1.4. Объем пульпы, м3/час</span>
-                    <input type="text" placeholder="Введите значение" name="otherRaw[4]">
+                    <input type="number" placeholder="Введите значение" name="otherRaw[4]">
                     <span class="parameterLabel">1.5. Химический, минералогический и фазовый состав руды</span>
                     <input type="text" placeholder="Введите значение" name="otherRaw[5]">`;
             document.getElementById('rawParameters').appendChild(variantNode);
@@ -675,4 +786,11 @@
         </form>
     </section>
 </main>
+<aside id="success" class="modalWrapper">
+    <section class="modal">
+        <span class="modalTitle">Спасибо за вашу заявку!</span>
+        <span class="modalDescription">Наш специалист скоро свяжется с вами, а сейчас рекомендуем узнать больше о нашей компании.</span>
+        <a href="https://www.s-kat.com/company_ru" class="modalButton">Продолжить</a>
+    </section>
+</aside>
 <script src="https://form.ponomarev.studio/form.js"></script>
