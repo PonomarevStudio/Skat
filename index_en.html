@@ -1,0 +1,178 @@
+<main>
+    <section>
+        <h1 class="pageTitle">Сonfigurator</h1>
+    </section>
+    <section>
+        <p class="pageDescription">Select the necessary parameters online, fill out the application, and get costing and
+            installation time of the test sample for production.</p>
+        <form action="https://form.ponomarev.studio" class="formSection" id="form" method="post">
+            <span class="parameterLabel">1. Mineral raw materials for flotation enrichmen</span>
+            <div id="rawVariants">
+                <input name="raw[]" type="checkbox" value="coal">
+                <input name="raw[]" type="checkbox" value="cupro-zinc">
+                <input name="raw[]" type="checkbox" value="polymetal ores">
+                <input name="raw[]" type="checkbox" value="nonmetallic minerals">
+                <input name="raw[]" type="checkbox" value="rare metal ores">
+                <input name="raw[]" type="checkbox" value="non-point metal ores">
+                <input name="raw[]" type="checkbox" value="ores of precious metals">
+                <input name="raw[]" type="checkbox" value="ferrous metal ores">
+                <input type="checkbox" value="other">
+            </div>
+            <input class="inputOther" id="otherRaw" name="otherRawTitle" placeholder="Text"
+                   style="display: none">
+            <div id="rawParameters"></div>
+            <span class="parameterLabel">2. Alleged install location in flotation enrichment scheme</span>
+            <div class="radioParameters inline">
+                <input name="2" type="radio" value="control flotation">
+                <input name="2" type="radio" value="the main flotation">
+                <input name="2" type="radio" value="doflotation of tails">
+                <input name="2" type="radio" value="intercycle flotation">
+                <input name="2" type="radio" value="cleaning operations">
+                <input data-other="true" name="2" type="radio" value="other">
+            </div>
+            <input class="inputOther" id="otherPlace" name="otherPlace" placeholder="Text"
+                   style="display: none">
+            <span class="parameterLabel">3. Do you need a pump for pumping pulp with a capacity exceeding the processed volume of the pulp by 3 times and providing a pressure of it at least 0.2 MPa?</span>
+            <label class="parameterVariant"><input name="3" type="radio" value="It's required to obtain">It's required
+                to obtain</label>
+            <label class="parameterVariant"><input name="3" type="radio" value="It's available">It's available</label>
+            <span class="parameterLabel">4. Do you need compressed air with a pressure of at least 0.05 MPa in five times the volume of the processed pulp?</span>
+            <label class="parameterVariant"><input name="4" type="radio" value="It's required to obtain">It's required
+                to obtain</label>
+            <label class="parameterVariant"><input name="4" type="radio" value="It's available">It's available</label>
+            <span class="parameterLabel">5. Personal information</span>
+            <label class="formField">Name<br>
+                <input name="name" placeholder="Name" required type="text"></label>
+            <label class="formField">Phone<br>
+                <input name="phone" placeholder="+7 (999) 999-99-99" required type="tel"></label>
+            <label class="formField">E-mail<br>
+                <input name="email" placeholder="example@gmail.com" required type="email"></label>
+            <label class="formField">Text<br>
+                <textarea name="message" placeholder="Text" rows="6"></textarea></label>
+            <button type="submit">Build</button>
+        </form>
+    </section>
+</main>
+<aside class="modalWrapper" id="success">
+    <section class="modal">
+        <span class="modalTitle">Thanks for your request!</span>
+        <span class="modalDescription">Our specialist will phone or write you! We recomend you to know something more about our company.</span>
+        <a class="modalButton" href="https://www.s-kat.com/company_en">Let’s go</a>
+    </section>
+</aside>
+<script src="https://ponomarev.studio/Skat/form.js"></script>
+<script>
+    function addVariant(raw) {
+        console.debug('addVariant', raw);
+        let variantNode = document.createElement('div');
+        variantNode.className = 'parametersSection';
+        variantNode.id = raw;
+        variantNode.innerHTML = `<button class="deleteRaw" onclick="deleteVariant('${raw}')">
+                        <img src="https://static.tildacdn.com/tild3766-3164-4263-a537-383239663134/Group_833.png">
+                    </button>
+                    <span class="rawTitle">${raw}</span>
+                    <span class="parameterLabel">1.1. Select the particle size distribution of the material that is flotation enriched</span>
+                    <div class="radioParameters">
+                        <input type="radio" name="${raw}[1]" value="percent grade -0,074 mm">
+                        <input type="radio" name="${raw}[1]" value="percent grade -0,044 mm">
+                        <input type="radio" name="${raw}[1]" value="percent grade -0,02 mm">
+                    </div>
+                    <span class="parameterLabel">1.2. pH of pulp</span>
+                    <input type="number" placeholder="Text" min="1" max="12" name="${raw}[2]">
+                    <span class="parameterLabel">1.3. Proportion solid-to-liquid</span>
+                    <input type="text" placeholder="Text" name="${raw}[3]">
+                    <span class="parameterLabel">1.4. Volume of Pulp, m³/hour</span>
+                    <input type="number" placeholder="Text" name="${raw}[4]">
+                    <span class="parameterLabel">1.5. Chemical, mineralogical and phase composition of ore</span>
+                    <input type="text" placeholder="Text" name="${raw}[5]">`;
+        document.getElementById('rawParameters').appendChild(variantNode);
+    }
+
+    function deleteVariant(raw) {
+        console.debug('deleteVariant', raw);
+        let variantNode = document.getElementById(raw);
+        variantNode.parentNode.removeChild(variantNode);
+        document.querySelector(`#rawVariants > input[value="${raw}"]`).checked = false;
+    }
+
+    function updateOtherVariant(otherRaw) {
+        console.debug('updateOtherVariant', otherRaw);
+        if (!document.getElementById('otherVariant')) {
+            let variantNode = document.createElement('div');
+            variantNode.className = 'parametersSection';
+            variantNode.id = 'otherVariant';
+            variantNode.innerHTML = `<button class="deleteRaw" onclick="deleteOtherVariant()">
+                        <img src="https://static.tildacdn.com/tild3766-3164-4263-a537-383239663134/Group_833.png">
+                    </button>
+                    <span class="rawTitle">${otherRaw}</span>
+                    <span class="parameterLabel">1.1. Select the particle size distribution of the material that is flotation enriched</span>
+                    <div class="radioParameters">
+                        <input type="radio" name="otherRaw[1]" value="percent grade -0,074 mm">
+                        <input type="radio" name="otherRaw[1]" value="percent grade -0,044 mm">
+                        <input type="radio" name="otherRaw[1]" value="percent grade -0,02 mm">
+                    </div>
+                    <span class="parameterLabel">1.2. pH of pulp</span>
+                    <input type="number" placeholder="Text" min="1" max="12" name="otherRaw[2]">
+                    <span class="parameterLabel">1.3. Proportion solid-to-liquid</span>
+                    <input type="text" placeholder="Text" name="otherRaw[3]">
+                    <span class="parameterLabel">1.4. Volume of Pulp, m³/hour</span>
+                    <input type="number" placeholder="Text" name="otherRaw[4]">
+                    <span class="parameterLabel">1.5. Chemical, mineralogical and phase composition of ore</span>
+                    <input type="text" placeholder="Text" name="otherRaw[5]">`;
+            document.getElementById('rawParameters').appendChild(variantNode);
+        } else {
+            document.getElementById('otherVariant').querySelector(`.rawTitle`).innerText = otherRaw;
+        }
+    }
+
+    function deleteOtherVariant() {
+        console.debug('deleteOtherVariant');
+        let variantNode = document.getElementById('otherVariant');
+        variantNode.parentNode.removeChild(variantNode);
+        document.querySelector(`#rawVariants > input[value="Другое"]`).checked = false;
+        toggleOtherRawField(false)
+    }
+
+    function toggleOtherRawField(state) {
+        const otherRaw = document.getElementById('otherRaw');
+        otherRaw.style.display = state ? 'initial' : 'none';
+        if (!state) {
+            otherRaw.value = '';
+            deleteOtherVariant();
+        }
+    }
+
+    function toggleOtherPlace(state) {
+        const otherPlace = document.getElementById('otherPlace');
+        otherPlace.style.display = state ? 'initial' : 'none';
+        if (!state) {
+            otherPlace.value = '';
+        }
+    }
+
+    function togglePlaceHandler(event) {
+        const node = event.target;
+        toggleOtherPlace(node.checked && node.dataset.other);
+    }
+
+    window.addEventListener('load', () => {
+        document.getElementById('rawVariants').querySelectorAll('input[name="raw[]"]').forEach(rawToggle =>
+            rawToggle.addEventListener('change', e => this[e.target.checked ? 'addVariant' : 'deleteVariant'](e.target.value)));
+        document.getElementById('rawVariants').querySelector('input[value="Другое"]').addEventListener('change', e => toggleOtherRawField(e.target.checked));
+        document.getElementById('otherRaw').addEventListener('change', e => e.target.value.length > 0 ? updateOtherVariant(e.target.value) : deleteOtherVariant());
+        document.getElementById('form').addEventListener('keypress', (e) => {
+            if (e.keyCode === 13) {
+                var src = e.srcElement || e.target;
+                if (src.tagName.toLowerCase() !== "textarea") {
+                    if (e.preventDefault) {
+                        e.preventDefault();
+                    } else {
+                        e.returnValue = false;
+                    }
+                }
+            }
+        })
+        // document.getElementById('otherPlaceToggle').addEventListener('change', e => toggleOtherPlace(e.target.checked));
+        document.querySelectorAll('input[name="2"]').forEach(node => node.addEventListener('change', togglePlaceHandler))
+    });
+</script>
