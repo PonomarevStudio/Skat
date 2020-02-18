@@ -129,7 +129,7 @@
         console.debug('deleteOtherVariant');
         let variantNode = document.getElementById('otherVariant');
         variantNode.parentNode.removeChild(variantNode);
-        document.querySelector(`#rawVariants > input[value="Другое"]`).checked = false;
+        document.querySelector(`#rawVariants > input[value="other"]`).checked = false;
         toggleOtherRawField(false)
     }
 
@@ -158,7 +158,7 @@
     window.addEventListener('load', () => {
         document.getElementById('rawVariants').querySelectorAll('input[name="raw[]"]').forEach(rawToggle =>
             rawToggle.addEventListener('change', e => this[e.target.checked ? 'addVariant' : 'deleteVariant'](e.target.value)));
-        document.getElementById('rawVariants').querySelector('input[value="Другое"]').addEventListener('change', e => toggleOtherRawField(e.target.checked));
+        document.getElementById('rawVariants').querySelector('input[value="other"]').addEventListener('change', e => toggleOtherRawField(e.target.checked));
         document.getElementById('otherRaw').addEventListener('change', e => e.target.value.length > 0 ? updateOtherVariant(e.target.value) : deleteOtherVariant());
         document.getElementById('form').addEventListener('keypress', (e) => {
             if (e.keyCode === 13) {
