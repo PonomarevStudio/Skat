@@ -22,3 +22,5 @@ document.querySelectorAll('form').forEach(function (form) {
         return false;
     };
 });
+window.addEventListener('load', () =>
+    document.querySelector('input[value="Руды рассеянных металлов"]').value = 'Перечистные операции');
